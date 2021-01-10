@@ -1,0 +1,78 @@
+﻿@page "/{id:int?}"
+@model Misan_Diana_ProiectRestaurant.Pages.Restaurants.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].Order)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].RestaurantName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].OpeningDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].PayMethod.PayMethodName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].RestaurantCategories)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RestaurantD.Restaurants)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.RestaurantID)
+            {
+                selectedRow = "table-success";
+            }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpeningDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayMethod.PayMethodName)
+            </td>
+            <td>
+                @{
+                    foreach (var category in item.RestaurantCategories)
+                    {
+                        @category.Category.ID @: @category.Category.CategoryName <br />
+                    }
+                }
+            </td>
+
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
